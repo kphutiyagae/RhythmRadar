@@ -1,11 +1,41 @@
 {
-  "extends" : ["next/core-web-vitals","prettier"],
-  "plugins": ["@typescript-eslint","prettier-plugin-tailwindcss"],
-  "rules": {
-    "trailingComma": 1,
-    "semi": 1,
-    "tabWidth": 2,
-    "singleQuote": 2,
-    "jsxSingleQuote": 1
-  }
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/recommended",
+        "next/core-web-vitals",
+        "prettier"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "@typescript-eslint",
+        "react",
+        "prettier"
+    ],
+    "rules": {
+        "indent": [
+            "warn",
+            "tab"
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ]
+    }
 }
