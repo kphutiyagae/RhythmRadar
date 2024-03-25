@@ -13,14 +13,14 @@ export interface PlaylistReference {
 }
 
 export interface Track {
-  id: string
-  trackExternalId: string
+  _id: string
+  eId: string
   name: string
-  image: string
+  img: string
   uId: string
   uNm: string
-  userPlaylistRef?: PlaylistReference | PlaylistReference[]
-  playlistId: string
+  pl?: PlaylistReference | PlaylistReference[]
+  pId: string
   nbR: number
   nbL: number
   score: number

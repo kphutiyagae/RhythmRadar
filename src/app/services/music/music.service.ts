@@ -7,5 +7,6 @@ export async function getAllHotTracks(): Track[] {
   if(!data.ok){
     throw new Error('Failed to fetch hot tracks');
   }
+
   return await data.json().then( res => res?.tracks);
 }
