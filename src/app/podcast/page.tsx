@@ -1,11 +1,10 @@
 import React from 'react';
 
-const Music = () => {
+export default function Podcast(){
   return (
     <div>
-      <p>Music Page</p>
+      <p>Podcast Page</p>
     </div>
   );
 };
 
-export default Music;

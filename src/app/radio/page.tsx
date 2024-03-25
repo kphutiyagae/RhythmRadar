@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Radio = () => {
+export default function Radio(){
   return (
     <div>
       <p>Radio Page</p>
@@ -8,4 +8,3 @@ const Radio = () => {
   );
 };
 
-export default Radio;
