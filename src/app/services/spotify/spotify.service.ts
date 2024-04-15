@@ -1,8 +1,27 @@
 import { environments } from '@/app/environments/dev.environment';
+// import { getSession } from 'next-auth/react';
+// import { getToken } from 'next-auth/jwt';
+import { getToken } from 'next-auth/jwt';
 
-export async function getTopTracks(accessToken: string) {
-  console.log({code: accessToken})
+export async function getUserTopTracks(accessToken: string) {
   return fetch(`${environments.SPOTIFY_API_BASE_URL}/me/top/tracks`, {
+    headers: {
+      Authorization: `Authorization: Bearer ${accessToken}`
+    }
+  }).then( response => response.json())
+}
+
+export async function getUserTopArtists(accessToken: string) {
+  // console.log({code: accessToken})
+  return fetch(`${environments.SPOTIFY_API_BASE_URL}/me/top/artists`, {
+    headers: {
+      Authorization: `Authorization: Bearer ${accessToken}`
+    }
+  }).then( response => response.json())
+}
+export async function getGenresList(accessToken: string) {
+  console.log({code: accessToken})
+  return fetch(`${environments.SPOTIFY_API_BASE_URL}/me/top/artists`, {
     headers: {
       Authorization: `Authorization: Bearer ${accessToken}`
     }
