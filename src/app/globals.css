@@ -39,4 +39,8 @@ body {
   .nav-button{
     @apply bg-red-500 p-3 rounded-md bg-primary text-white px-10
   }
+
+  .logged-in-button{
+    @apply border border-primary p-3 rounded-md
+  }
 }

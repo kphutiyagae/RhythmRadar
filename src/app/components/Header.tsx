@@ -20,7 +20,7 @@ function Header() {
         <li className='nav-item'>Radio</li>
       </ul>
       <>
-        {session?.user !== undefined ? <div>{session?.user?.name ?? 'User'} </div> : <button className='nav-button'>Sign In</button>}
+        {session?.user !== undefined ? <div className='logged-in-button'> <p className='text-lg font-black'>{session?.user?.name ?? 'User'}</p> </div> : <a href='/api/auth/signin'><button className='nav-button'>Sign In</button></a>}
       </>
     </div>
   );
