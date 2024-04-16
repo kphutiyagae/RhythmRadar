@@ -1,4 +1,8 @@
 node_modules
 .idea
 .next
-**.environment.ts
+src/app/environments
+# local env files
+.env*.local
+.DS_Store
+public/.*
