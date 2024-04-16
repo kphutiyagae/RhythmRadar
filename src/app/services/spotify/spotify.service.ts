@@ -93,7 +93,7 @@ export async function search(query: string) {
 
 export async function getRecommendations() {
   const session = await getSession();
-  if(session?.accessToken === undefined || query.length === 0) return;
+  if(session?.accessToken === undefined) return;
 
   return fetch(`${environments.SPOTIFY_API_BASE_URL}/recommendations`, {
     headers: {
