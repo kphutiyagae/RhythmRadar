@@ -4,3 +4,5 @@ node_modules
 src/app/environments
 # local env files
 .env*.local
+.DS_Store
+public/.*
