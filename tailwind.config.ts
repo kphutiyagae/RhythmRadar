@@ -15,7 +15,9 @@ const config: Config = {
       },
       colors: {
         'primary': '#3962f2',
-        'text-highlight': '#D5DEFF'
+        'text-highlight': '#D5DEFF',
+        'text-subtitle': '#adadad',
+        'card-overlay': 'rgba(0,0,0,0.5)'
       }
     },
   },

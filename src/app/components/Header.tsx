@@ -8,7 +8,7 @@ function Header() {
   const {data: session} = useSession();
 
   return (
-    <div className='py-4 pl-6 text-white w-full h-full flex flex-row justify-around items-baseline'>
+    <div className='py-4 px-12 text-white w-full h-full flex flex-row justify-between items-baseline'>
       <ul className='w-3/4 h-full flex flex-row justify-between mr-2 font-black'>
         <li className='nav-item'>
           <div>

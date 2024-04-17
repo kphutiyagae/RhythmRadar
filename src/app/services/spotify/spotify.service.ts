@@ -3,6 +3,7 @@ import { environments } from '@/app/environments/dev.environment';
 // import { getToken } from 'next-auth/jwt';
 import { getToken } from 'next-auth/jwt';
 import { getSession } from 'next-auth/react';
+import { SpotifyPlaylist, SpotifyPlaylistResponse, SpotifyResponse } from '@/app/models/music/spotify/types';
 
 export async function getUserTopTracks() {
   const session = await getSession();
@@ -25,7 +26,7 @@ export async function getUserTopArtists() {
   }).then( response => response.json())
 }
 
-export async function getUserPlaylists(userId: string) {
+export async function getUserPlaylists(userId: string): Promise<SpotifyPlaylist[]> {
   const session = await getSession();
   if(session?.accessToken === undefined || session?.user?.name === undefined) return;
 
@@ -33,7 +34,10 @@ export async function getUserPlaylists(userId: string) {
     headers: {
       Authorization: `Authorization: Bearer ${session.accessToken}`
     }
-  }).then( response => response.json())
+  }).then( async response => {
+    const res = await response.json() as SpotifyPlaylistResponse;
+    return res.items
+  }).catch( e => {console.log(e); return new Array([])})
 }
 
 export async function getRecommendedPlaylists() {

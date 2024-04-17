@@ -4,6 +4,8 @@ import React from 'react';
 import { SectionComponentProps } from '@/app/models/components/prop.types';
 import { Track } from '@/app/models/music/openwhyd/types';
 import Image from 'next/image';
+import { SpotifyPlaylist } from '@/app/models/music/spotify/types';
+import MusicCard from '@/app/components/music/MusicCard';
 
 function handleClick(id: string){
   console.log(`Clicked: ${id}`);
@@ -43,6 +45,30 @@ const PageSection = (props: SectionComponentProps) => {
         </table>
       </div>
     }
+  }
+  if(props.type === 'hero'){
+    if(!props.tracks || props.tracks.length === 0){
+      return <div><p>No tracks to display</p></div>
+    }
+    return <div>
+      <h2></h2>
+    </div>
+  }
+  if(props.type === 'carousel'){
+    const playlists = props.tracks as SpotifyPlaylist[];
+    return (
+      <>
+        <h1 className='section-header'>{props.title}</h1>
+        <ul className='w-screen flex flex-row overflow-x-auto mt-5 overflow-y-hidden py-5'>{playlists.map(playlist =>{
+          return  (
+            <li>
+              <MusicCard id={playlist.id} title={playlist.name} subtitle={playlist.description} type='carousel' image={playlist.images.at(0).url}/>
+            </li>
+          )
+        })}</ul>
+      </>
+      )
+
   }
   else{}
 };
