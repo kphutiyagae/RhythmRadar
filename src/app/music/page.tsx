@@ -7,7 +7,7 @@ export default async function Music() {
   // const hotTracks = await getAllHotTracks();
   return (
     <div>
-      <SectionComponent type='track-list' title='Trending' tracks={[]}/>
+      {/*<SectionComponent type='track-list' title='Trending' items={[]}/>*/}
     </div>
   );
 };

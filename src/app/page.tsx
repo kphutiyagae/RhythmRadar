@@ -12,6 +12,7 @@ import {
 import { getSession, useSession } from 'next-auth/react';
 import SectionComponent from '@/app/components/section.component';
 import { DM_Sans } from 'next/font/google';
+import { SpotifyPlaylist, SpotifyTrack } from '@/app/models/music/spotify/types';
 const dmSans = DM_Sans({subsets: ['latin'], weight: ['500','900']})
 
 // const session = await getSession();
@@ -23,7 +24,9 @@ export default function Home() {
 	// const [session, loading] = useSession();
 
 	// const [x, setX] = useState('');
-	const [playlists, setPlaylists] = useState([]);
+	const [playlists, setPlaylists] = useState<SpotifyPlaylist[]>([]);
+	const [tracks, setTracks] = useState<SpotifyTrack[]>([]);
+	const [artists, setArtists] = useState([]);
 
 	useEffect(() => {
 		// console.log(sessionStorage.getItem('accessToken'));
@@ -34,7 +37,10 @@ export default function Home() {
 		// 	.then(tracks => setTopTracks(tracks))
 		// getUserTopArtists()
 		// 	.then(console.log)
-		getCurrentUserProfile().then( user => getUserPlaylists(user.id).then(playlists => setPlaylists(playlists)))
+		getCurrentUserProfile().then( user => getUserPlaylists(user.id).then(playlists => setPlaylists(playlists)));
+		getUserTopTracks().then(tracks => setTracks(tracks))
+		getUserTopArtists().then(artists => setArtists(artists));
+
 	}, [])
 	return (
 		<div className='flex min-h-screen flex-col'>
@@ -42,7 +48,8 @@ export default function Home() {
 				<h1 className='page-header'>Welcome Back!</h1>
 				<h2 className='page-subheader ml-4 text-text-highlight'>Let's hop back into some music</h2>
 			</span>
-			<SectionComponent type='carousel' title='Trending' tracks={playlists}/>
+			<SectionComponent type='carousel' title='Top Tracks' items={tracks} itemType='track-spotify'/>
+			<SectionComponent type='carousel' title='Playlists' items={playlists} itemType='playlist-spotify'/>
 		</div>
 	);
 }
