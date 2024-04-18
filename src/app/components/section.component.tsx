@@ -6,6 +6,9 @@ import { Track } from '@/app/models/music/openwhyd/types';
 import Image from 'next/image';
 import { SpotifyPlaylist, SpotifyTrack } from '@/app/models/music/spotify/types';
 import MusicCard from '@/app/components/music/MusicCard';
+import { RadioStation } from '@/app/models/radio/types';
+import RadioCard from '@/app/components/radio/RadioCard';
+import { Station } from 'radio-browser-api';
 
 function handleClick(id: string){
   console.log(`Clicked: ${id}`);
@@ -87,6 +90,34 @@ const PageSection = (props: SectionComponentProps) => {
       )
     }
 
+  }
+  if(props.type === 'radio'){
+    if(props.items){
+      const radioStations = props.items as Station [];
+
+      return (
+        <>
+         <h1 className='section-header'>{props.title}</h1>
+         <ul className='w-full h-screen flex flex-col overflow-y-auto overflow-x-hidden py-5'>
+           {radioStations.map(station => {
+             return (
+               <li className='p-5 bg-y m-2 w-3/4'>
+                 <div className='flex flex-col'>
+                  <p>{station.name}</p>
+                   <p>{station.country}</p>
+                   <ul>{station.tags.map( (tag, index) => {
+                     if(index < 2){
+                       return <p>{tag}</p>
+                     }
+                   })}</ul>
+                 </div>
+               </li>
+             );
+           })}
+         </ul>
+        </>
+      )
+    }
   }
   else{}
 };

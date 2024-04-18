@@ -30,7 +30,7 @@ export default function Radio(){
 
   return (
     <div>
-      <div className='cursor-move w-screen h-screen bg-red-400 flex flex-row'>
+      <div className='cursor-move w-screen h-screen flex flex-row rounded-lg'>
         <Globe globeImageUrl={globeTexture.src} pointsData={myData} width={1000} pointAltitude='altitude' pointColor='color'  />
         <StationList api={api}/>
       </div>
