@@ -26,8 +26,10 @@ export default function Radio(){
   ];
 
   return (
-    <div className='cursor-move'>
-      <Globe globeImageUrl={globeTexture.src} pointsData={myData} pointAltitude='altitude' pointColor='color'  />
+    <div>
+      <div className='cursor-move w-1/2'>
+        <Globe globeImageUrl={globeTexture.src} pointsData={myData} width={500} pointAltitude='altitude' pointColor='color'  />
+      </div>
     </div>
   );
 };
