@@ -3,9 +3,17 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 // import { useSession } from 'next-auth/client';
 import { useEffect, useState } from 'react';
-import { getUserTopArtists, getUserTopTracks } from '@/app/services/spotify/spotify.service';
+import {
+	getCurrentUserProfile,
+	getUserPlaylists,
+	getUserTopArtists,
+	getUserTopTracks,
+} from '@/app/services/spotify/spotify.service';
 import { getSession, useSession } from 'next-auth/react';
-
+import SectionComponent from '@/app/components/section.component';
+import { DM_Sans } from 'next/font/google';
+import { SpotifyPlaylist, SpotifyTrack } from '@/app/models/music/spotify/types';
+const dmSans = DM_Sans({subsets: ['latin'], weight: ['500','900']})
 
 // const session = await getSession();
 export default function Home() {
@@ -16,24 +24,32 @@ export default function Home() {
 	// const [session, loading] = useSession();
 
 	// const [x, setX] = useState('');
-	const [topTracks, setTopTracks] = useState([]);
+	const [playlists, setPlaylists] = useState<SpotifyPlaylist[]>([]);
+	const [tracks, setTracks] = useState<SpotifyTrack[]>([]);
+	const [artists, setArtists] = useState([]);
 
 	useEffect(() => {
 		// console.log(sessionStorage.getItem('accessToken'));
 		// if(session && session.accessToken){
 		// 	const activity = getRecentActivity(session.accessToken);
 		// }
-		getUserTopTracks()
-			.then(tracks => setTopTracks(tracks))
-		getUserTopArtists()
-			.then(console.log)
+		// getUserTopTracks()
+		// 	.then(tracks => setTopTracks(tracks))
+		// getUserTopArtists()
+		// 	.then(console.log)
+		getCurrentUserProfile().then( user => getUserPlaylists(user.id).then(playlists => setPlaylists(playlists)));
+		getUserTopTracks().then(tracks => setTracks(tracks))
+		getUserTopArtists().then(artists => setArtists(artists));
+
 	}, [])
 	return (
-		<main className='flex min-h-screen flex-col items-center justify-between p-24'>
-			<div>Landing Page</div>
-			<p>Status: {session?.accessToken ?? 'Not logged in'}</p>
-			<p>User: {session?.user?.name ?? 'Not logged in'}</p>
-
-		</main>
+		<div className='flex min-h-screen flex-col'>
+			<span className={dmSans.className + ' pl-12 mb-5'}>
+				<h1 className='page-header'>Welcome Back!</h1>
+				<h2 className='page-subheader ml-4 text-text-highlight'>Let's hop back into some music</h2>
+			</span>
+			<SectionComponent type='carousel' title='Top Tracks' items={tracks} itemType='track-spotify'/>
+			<SectionComponent type='carousel' title='Playlists' items={playlists} itemType='playlist-spotify'/>
+		</div>
 	);
 }
