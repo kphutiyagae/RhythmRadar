@@ -2,8 +2,11 @@
 import React from 'react';
 import Globe from 'react-globe.gl';
 import globeTexture from '../../../public/earth-dark.jpg';
+import { RadioBrowserApi } from 'radio-browser-api';
+import StationList from '@/app/components/radio/StationList';
 
 export default function Radio(){
+  const api = new RadioBrowserApi('RhythmRadarRadio');
   const myData = [
     {
       lat: 29.953204744601763,
@@ -27,8 +30,9 @@ export default function Radio(){
 
   return (
     <div>
-      <div className='cursor-move w-1/2'>
-        <Globe globeImageUrl={globeTexture.src} pointsData={myData} width={500} pointAltitude='altitude' pointColor='color'  />
+      <div className='cursor-move w-screen h-screen bg-red-400 flex flex-row'>
+        <Globe globeImageUrl={globeTexture.src} pointsData={myData} width={1000} pointAltitude='altitude' pointColor='color'  />
+        <StationList api={api}/>
       </div>
     </div>
   );
