@@ -98,16 +98,16 @@ const PageSection = (props: SectionComponentProps) => {
       return (
         <>
          <h1 className='section-header'>{props.title}</h1>
-         <ul className='w-full h-screen flex flex-col overflow-y-auto overflow-x-hidden py-5'>
+         <ul className='w-[90] h-screen flex flex-col overflow-y-auto overflow-x-hidden py-5 ml-12 mt-4'>
            {radioStations.map(station => {
              return (
-               <li className='p-5 bg-y m-2 w-3/4'>
+               <li id={station.id} className='p-2 w-3/4 border-b border-gray-800 min-h-24 cursor-pointer'>
                  <div className='flex flex-col'>
-                  <p>{station.name}</p>
-                   <p>{station.country}</p>
-                   <ul>{station.tags.map( (tag, index) => {
+                  <p className='item-title'>{station.name}</p>
+                   <p className='item-subtitle'>{station.country}</p>
+                   <ul className='flex flex-row'>{station.tags.map( (tag, index) => {
                      if(index < 2){
-                       return <p>{tag}</p>
+                       return <li className='tag-pill'>{tag}</li>
                      }
                    })}</ul>
                  </div>

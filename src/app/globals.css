@@ -43,6 +43,18 @@ body {
     @apply text-3xl pt-3 font-medium
   }
 
+  .tag-pill {
+    @apply py-0.5 px-3 bg-primary text-xs mt-1 text-white font-light mr-2 rounded-xl
+  }
+
+  .item-title{
+    @apply font-semibold
+  }
+
+  .item-subtitle{
+    @apply text-sm text-gray-400
+  }
+
 }
 
 @layer components {
