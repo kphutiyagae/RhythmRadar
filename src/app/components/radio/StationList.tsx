@@ -5,6 +5,7 @@ import { number } from 'prop-types';
 import StationSearch from '@/app/components/radio/StationSearch';
 import SectionComponent from '@/app/components/section.component';
 import { RadioStation } from '@/app/models/radio/types';
+import {useRadio} from '@/app/store/radio/RadioProvider';
 
 export interface StationListProps {
   api: RadioBrowserApi
@@ -15,7 +16,8 @@ function StationList(props: StationListProps) {
   const [currentLocation, setCurrentLocation] = useState<[number, number]>([0,0]);
   const [countries, setCountries] = useState<CountryResult[]>([]);
   const [radioStations, setRadioStations] = useState<Station[]>([]);
-  // const stations = await api.getStationsBy(StationSearchType.byTag, 'jazz').then(console.log);
+  const c = useRadio();
+
   useEffect(() => {
     return async () => {
       // if(navigator.geolocation){
@@ -30,8 +32,8 @@ function StationList(props: StationListProps) {
       // else{
       //   console.log("Geolocation not supported.")
       // }
-
       await api.getStationsBy(StationSearchType.byCountry, 'South Africa').then((stations: Station[]) => setRadioStations(stations));
+
       // await api.getCountries().then((countryList: CountryResult[]) => setCountries(countryList));
     };
   }, []);

@@ -5,8 +5,7 @@ import { RadioSearchParams, RadioStoreType } from '@/app/models/store/types';
 import { devtools } from 'zustand/middleware';
 import { Station } from 'radio-browser-api';
 
-const createStore = (cart: RadioStoreType) =>
-  create<RadioStoreType>()(devtools(set => ({
+const useRadioStore = create<RadioStoreType>()(devtools(set => ({
     currentCoordinates: [0,0],
     currentRadioStation: undefined,
     searchParams: {
@@ -47,3 +46,19 @@ const createStore = (cart: RadioStoreType) =>
       set({searchTerm: searchTerm})
     }
   })))
+
+const RadioContext = createContext<ReturnType<typeof useRadioStore> | null>(null);
+
+export const useRadio = () => {
+  if (!RadioContext)
+    throw new Error("useRadio must be used within a RadioProvider");
+  return useContext(RadioContext)!;
+};
+
+const RadioProvider = ({ children }: { children: React.ReactNode; }) => {
+  const [store] = useState(() => useRadioStore());
+  return <RadioContext.Provider value={store}>{children}</RadioContext.Provider>;
+};
+
+export default RadioProvider;
+
