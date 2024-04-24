@@ -4,12 +4,11 @@ import Globe from 'react-globe.gl';
 import globeTexture from '../../../public/earth-dark.jpg';
 import { RadioBrowserApi, Station } from 'radio-browser-api';
 import StationList from '@/app/components/radio/StationList';
-import useRadioStore from '@/app/store/radio/RadioProvider';
-import { store } from 'next/dist/build/output/store';
+
 export default function Radio(){
   const api = new RadioBrowserApi('RhythmRadarRadio');
 
-  const {} = useRadioStore();
+
   const myData = [
     {
       lat: 29.953204744601763,

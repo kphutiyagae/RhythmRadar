@@ -4,8 +4,7 @@ import { CountryResult, RadioBrowserApi, StationSearchType, StationQuery, Statio
 import { number } from 'prop-types';
 import StationSearch from '@/app/components/radio/StationSearch';
 import SectionComponent from '@/app/components/section.component';
-import { RadioStation } from '@/app/models/radio/types';
-import {useRadio} from '@/app/store/radio/RadioProvider';
+import radioStore from '@/app/store/radio/RadioProvider';
 
 export interface StationListProps {
   api: RadioBrowserApi
@@ -16,7 +15,9 @@ function StationList(props: StationListProps) {
   const [currentLocation, setCurrentLocation] = useState<[number, number]>([0,0]);
   const [countries, setCountries] = useState<CountryResult[]>([]);
   const [radioStations, setRadioStations] = useState<Station[]>([]);
-  const c = useRadio();
+  const {stations, updateRadioStations} = radioStore();
+
+  // const stations = radioStore( state => state.stations);
 
   useEffect(() => {
     return async () => {
@@ -32,8 +33,9 @@ function StationList(props: StationListProps) {
       // else{
       //   console.log("Geolocation not supported.")
       // }
-      await api.getStationsBy(StationSearchType.byCountry, 'South Africa').then((stations: Station[]) => setRadioStations(stations));
-
+       await api.getStationsBy(StationSearchType.byCountry, 'South Africa').then((stations: Station[]) => {
+         updateRadioStations(stations);
+       });
       // await api.getCountries().then((countryList: CountryResult[]) => setCountries(countryList));
     };
   }, []);
@@ -41,7 +43,7 @@ function StationList(props: StationListProps) {
   return (
     <div className='overflow-hidden w-full h-3/4 border border-primary rounded-lg'>
       <StationSearch/>
-      <SectionComponent type='radio' itemType='radio' title='Stations' items={radioStations}/>
+      <SectionComponent type='radio' itemType='radio' title='Stations' items={stations}/>
     </div>
   )
 }
