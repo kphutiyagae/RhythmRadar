@@ -92,7 +92,7 @@ const PageSection = (props: SectionComponentProps) => {
 
   }
   if(props.type === 'radio'){
-    if(props.items){
+    if(props.items && props.onItemClick !== undefined){
       const radioStations = props.items as Station [];
 
       return (
@@ -101,7 +101,7 @@ const PageSection = (props: SectionComponentProps) => {
          <ul className='w-[90] h-screen flex flex-col overflow-y-auto overflow-x-hidden py-5 ml-12 mt-4'>
            {radioStations.map(station => {
              return (
-               <li id={station.id} className='p-2 w-3/4 border-b border-gray-800 min-h-24 cursor-pointer'>
+               <li key={station.id} onClick={(event) => {props.onItemClick(station)}} id={station.id} className='p-2 w-3/4 border-b border-gray-800 min-h-24 cursor-pointer'>
                  <div className='flex flex-col'>
                   <p className='item-title'>{station.name}</p>
                    <p className='item-subtitle'>{station.country}</p>

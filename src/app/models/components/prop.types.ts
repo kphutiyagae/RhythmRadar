@@ -11,4 +11,5 @@ export interface SectionComponentProps {
   items?: Track[] | SpotifyTrack |SpotifyTrack[] | SpotifyArtist |SpotifyArtist [] | SpotifyPlaylist | SpotifyPlaylist [] | Station | Station[];
   title: string;
   subtitle ?: string;
+  onItemClick?: (item: unknown) => void;
 }

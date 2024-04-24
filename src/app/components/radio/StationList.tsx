@@ -15,7 +15,7 @@ function StationList(props: StationListProps) {
   const [currentLocation, setCurrentLocation] = useState<[number, number]>([0,0]);
   const [countries, setCountries] = useState<CountryResult[]>([]);
   const [radioStations, setRadioStations] = useState<Station[]>([]);
-  const {stations, updateRadioStations} = radioStore();
+  const {stations, updateRadioStations, updateCurrentRadioStation} = radioStore();
 
   // const stations = radioStore( state => state.stations);
 
@@ -43,7 +43,7 @@ function StationList(props: StationListProps) {
   return (
     <div className='overflow-hidden w-full h-3/4 border border-primary rounded-lg'>
       <StationSearch/>
-      <SectionComponent type='radio' itemType='radio' title='Stations' items={stations}/>
+      <SectionComponent type='radio' itemType='radio' title='Stations' items={stations} onItemClick={updateCurrentRadioStation}/>
     </div>
   )
 }
