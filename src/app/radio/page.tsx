@@ -4,16 +4,18 @@ import Globe from 'react-globe.gl';
 import globeTexture from '../../../public/earth-dark.jpg';
 import { RadioBrowserApi, Station } from 'radio-browser-api';
 import StationList from '@/app/components/radio/StationList';
+import StationStreamer from '@/app/components/radio/StationStreamer';
+import radioStore from '@/app/store/radio/RadioProvider';
 
 export default function Radio(){
   const api = new RadioBrowserApi('RhythmRadarRadio');
-
-
+  const {currentRadioStation, currentCoordinates} = radioStore();
+  const radioStreamerRef = React.createRef<HTMLSourceElement>();
   const myData = [
     {
       lat: 29.953204744601763,
       lng: -90.08925929478903,
-      altitude: 0.4,
+      altitude: 0.1,
       color: '#00ff33',
     },
     {
@@ -33,8 +35,12 @@ export default function Radio(){
   return (
     <div>
       <div className='w-screen h-screen flex flex-row rounded-lg'>
-        <Globe globeImageUrl={globeTexture.src} pointsData={myData} width={1000} pointAltitude='altitude' pointColor='color'  />
+        <div className='flex flex-col h-full w-full items-center'>
+          <Globe globeImageUrl={globeTexture.src} pointsData={[currentCoordinates]} width={1000} pointAltitude='altitude' pointColor='color'  />
+          { currentRadioStation !== undefined ? <StationStreamer streamerRef={radioStreamerRef} station={currentRadioStation}/> : ''}
+        </div>
         <StationList api={api}/>
+        {/*<StationStreamer station={currentRadioStation}/>*/}
       </div>
     </div>
   );
