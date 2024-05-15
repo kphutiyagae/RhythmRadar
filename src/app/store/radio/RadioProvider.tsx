@@ -14,6 +14,7 @@ const radioStore = create<RadioStoreType>()(devtools(set => ({
     },
     searchTerm: '',
     stations: [],
+    filteredRadioStations: [],
     clearCurrentCoordinates(){
       set({currentCoordinates: [0,0]});
     },
@@ -44,7 +45,16 @@ const radioStore = create<RadioStoreType>()(devtools(set => ({
     },
     updateSearchTerm(searchTerm: string){
       set({searchTerm: searchTerm})
-    }
+    },
+  updateFilteredRadioStations(){
+      const currentState = radioStore.getState();
+      if(currentState.searchTerm !== ''){
+        set({ filteredRadioStations: currentState.stations.filter( station => station.name.includes(currentState.searchTerm))})
+      }
+      else {
+        set({ filteredRadioStations: [] })
+      }
+  }
   })))
 
 // const RadioContext = createContext<ReturnType<typeof useRadioStore> | null>(null);

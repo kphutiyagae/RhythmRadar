@@ -10,6 +10,8 @@ export interface RadioStoreType {
   stations: Station[];
   searchTerm: string;
   searchParams: RadioSearchParams;
+  filteredRadioStations: Station[];
+  updateFilteredRadioStations: () => void;
   updateRadioStations: (stations: Station[]) => void;
   clearRadioStations: () => void;
   updateCurrentCoordinates: (coordinates: [number, number]) => void;

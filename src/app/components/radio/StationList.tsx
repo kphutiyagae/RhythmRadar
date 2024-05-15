@@ -15,7 +15,7 @@ function StationList(props: StationListProps) {
   const [currentLocation, setCurrentLocation] = useState<[number, number]>([0,0]);
   const [countries, setCountries] = useState<CountryResult[]>([]);
   const [radioStations, setRadioStations] = useState<Station[]>([]);
-  const {stations, updateRadioStations, updateCurrentRadioStation} = radioStore();
+  const {stations, filteredRadioStations, updateRadioStations, updateCurrentRadioStation} = radioStore();
   const audioElement = document?.querySelector("audio") ?? undefined;
 
   function updateRadioStream(station: Station){
@@ -27,8 +27,6 @@ function StationList(props: StationListProps) {
       });
     }
   }
-
-  // const stations = radioStore( state => state.stations);
 
   useEffect(() => {
     return async () => {
@@ -42,7 +40,7 @@ function StationList(props: StationListProps) {
   return (
     <div className='overflow-hidden w-full h-3/4 border border-primary rounded-lg'>
       <StationSearch/>
-      <SectionComponent type='radio' itemType='radio' title='Stations' items={stations} onItemClick={updateRadioStream}/>
+      <SectionComponent type='radio' itemType='radio' title='Stations' items={filteredRadioStations.length !== 0 ? filteredRadioStations : stations} onItemClick={updateRadioStream}/>
     </div>
   )
 }
