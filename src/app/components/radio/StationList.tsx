@@ -16,23 +16,22 @@ function StationList(props: StationListProps) {
   const [countries, setCountries] = useState<CountryResult[]>([]);
   const [radioStations, setRadioStations] = useState<Station[]>([]);
   const {stations, updateRadioStations, updateCurrentRadioStation} = radioStore();
+  const audioElement = document?.querySelector("audio") ?? undefined;
+
+  function updateRadioStream(station: Station){
+    updateCurrentRadioStation(station);
+    if(audioElement !== undefined){
+      audioElement.pause();
+      setTimeout(function () {
+        audioElement.load(); // This stops the stream from downloading
+      });
+    }
+  }
 
   // const stations = radioStore( state => state.stations);
 
   useEffect(() => {
     return async () => {
-      // if(navigator.geolocation){
-      //   navigator.geolocation.getCurrentPosition((location) => {
-      //     setUserLocation([location.coords.latitude, location.coords.longitude])
-      //     console.log(userLocation);
-      //   },
-      //     (error) => {
-      //     console.log('Could not retrieve your location.')
-      //     })
-      // }
-      // else{
-      //   console.log("Geolocation not supported.")
-      // }
        await api.getStationsBy(StationSearchType.byCountry, 'South Africa').then((stations: Station[]) => {
          updateRadioStations(stations);
        });
@@ -43,7 +42,7 @@ function StationList(props: StationListProps) {
   return (
     <div className='overflow-hidden w-full h-3/4 border border-primary rounded-lg'>
       <StationSearch/>
-      <SectionComponent type='radio' itemType='radio' title='Stations' items={stations} onItemClick={updateCurrentRadioStation}/>
+      <SectionComponent type='radio' itemType='radio' title='Stations' items={stations} onItemClick={updateRadioStream}/>
     </div>
   )
 }

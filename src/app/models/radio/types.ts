@@ -1,3 +1,5 @@
+import { Station } from 'radio-browser-api';
+
 export interface RadioStation {
   changeId: string
   id: string
@@ -25,4 +27,8 @@ export interface RadioStation {
   geoLat?: number
   geoLong?: number
   tags: string[]
+}
+
+export interface StationStreamerProps {
+  station: Station;
 }

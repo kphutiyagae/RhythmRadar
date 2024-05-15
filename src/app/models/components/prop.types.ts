@@ -12,4 +12,5 @@ export interface SectionComponentProps {
   title: string;
   subtitle ?: string;
   onItemClick?: (item: unknown) => void;
+  iconSrc?: string;
 }
