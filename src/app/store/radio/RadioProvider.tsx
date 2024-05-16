@@ -6,7 +6,14 @@ import { devtools } from 'zustand/middleware';
 import { Station } from 'radio-browser-api';
 
 const radioStore = create<RadioStoreType>()(devtools(set => ({
-    currentCoordinates: [0,0],
+    currentCoordinates: [
+      {
+        lat: 28.621322361013092,
+        lng: 77.20347613099612,
+        altitude: 0.2,
+        color: '#ff0000',
+      },
+    ],
     currentRadioStation: undefined,
     searchParams: {
       filterBy: [],
@@ -56,20 +63,5 @@ const radioStore = create<RadioStoreType>()(devtools(set => ({
       }
   }
   })))
-
-// const RadioContext = createContext<ReturnType<typeof useRadioStore> | null>(null);
-//
-// export const useRadio = () => {
-//   if (!RadioContext)
-//     throw new Error("useRadio must be used within a RadioProvider");
-//   return useContext(RadioContext)!;
-// };
-//
-// const RadioProvider = ({ children }: { children: React.ReactNode; }) => {
-//   const [store] = useState(() => useRadioStore());
-//   return <RadioContext.Provider value={store}>{children}</RadioContext.Provider>;
-// };
-//
-// export default RadioProvider;
 
 export default radioStore;

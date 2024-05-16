@@ -4,8 +4,16 @@ export interface RadioSearchParams {
   filterBy: {[key: string]: string}[]
   sortBy: 'asc' | 'desc' | 'alphabetical' | 'alphabetical-rev' | 'listens' | '';
 }
+
+export interface Coordinates     {
+  lat: number,
+  lng: number,
+  altitude: number,
+  color: string,
+}
+
 export interface RadioStoreType {
-  currentCoordinates: [number, number];
+  currentCoordinates: Coordinates[];
   currentRadioStation: Station;
   stations: Station[];
   searchTerm: string;
